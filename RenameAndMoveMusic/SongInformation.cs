@@ -16,7 +16,7 @@ namespace RenameAndMoveMusic
 				this.path = path;
 				this.title = tags.Title;
 				this.album = tags.Album;
-				this.artist = tags.Performers.FirstOrDefault();
+				this.artist = tags.AlbumArtists.FirstOrDefault() ?? tags.Performers.FirstOrDefault();
 				this.track = tags.Track > 0 ? (int?)tags.Track : (int?)null;
 				this.isCompilation = tags.IsCompilation;
 			}

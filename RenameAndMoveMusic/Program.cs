@@ -15,8 +15,8 @@ namespace RenameAndMoveMusic
 				return;
 			}
 
-			var sourceDir = args[0];
-			var destinationDir = args[1];
+			var sourceDir = args[0].Normalize();
+			var destinationDir = args[1].Normalize();
 
 			try
 			{
@@ -61,6 +61,8 @@ namespace RenameAndMoveMusic
 						} while (null != ex);
 					}
 				}
+
+				Program.Clean(destinationDir);
 			}
 			catch (Exception e)
 			{
@@ -92,7 +94,7 @@ namespace RenameAndMoveMusic
 					yield return filePath;
 
 			foreach (var filePath in Directory.GetFiles(sourceDir))
-				yield return filePath;
+				yield return filePath.Normalize();
 		}
 
 		/// <summary>
@@ -123,20 +125,38 @@ namespace RenameAndMoveMusic
 
 			foreach (var dir in placement.ParentDirs)
 			{
-				destinationPath = Path.Combine(destinationPath, dir);
+				destinationPath = Path.Combine(destinationPath, dir).Normalize();
 				Program.VerifyPath(destinationPath);
 			}
 
-			destinationPath = Path.Combine(destinationPath, placement.Filename);
+			destinationPath = Path.Combine(destinationPath, placement.Filename).Normalize();
 
-			Console.WriteLine(
-				"Moving\n\tFrom: {0}\n\tTo:   {1}",
-				path,
-				destinationPath);
+			if (path != destinationPath)
+			{
+				Console.WriteLine(
+					"Moving\n\tFrom: {0}\n\tTo:   {1}",
+					path,
+					destinationPath);
 
-			File.Move(
-				sourceFileName: path,
-				destFileName: destinationPath);
+				File.Move(
+					sourceFileName: path,
+					destFileName: destinationPath);
+			}
+		}
+
+		/// <summary>
+		/// Deletes the path if it contains no files, or if it only contains empty folders
+		/// </summary>
+		private static void Clean(string path)
+		{
+			foreach (var subdirectory in Directory.GetDirectories(path))
+				Program.Clean(subdirectory);
+
+			if (0 == Directory.GetDirectories(path).Length + Directory.GetFiles(path).Length)
+			{
+				Console.WriteLine("Deleting empty folder: {0}", path);
+				Directory.Delete(path);
+			}
 		}
 	}
 }
