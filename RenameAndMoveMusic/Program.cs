@@ -131,7 +131,7 @@ namespace RenameAndMoveMusic
 
 			destinationPath = Path.Combine(destinationPath, placement.Filename).Normalize();
 
-			if (path != destinationPath)
+			if (path.ToLowerInvariant() != destinationPath.ToLowerInvariant())
 			{
 				Console.WriteLine(
 					"Moving\n\tFrom: {0}\n\tTo:   {1}",
