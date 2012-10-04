@@ -93,7 +93,7 @@ namespace RenameAndMoveMusic
 		/// All of the invalid charachters
 		/// </summary>
 		private static readonly HashSet<char> invalidChars = new HashSet<char>(
-			Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars()).Concat(new char[] {'#', '/', '\\', ':', '?', '"', '\'', '“', '”', '‘', '’', '&'}));
+			Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars()).Concat(new char[] {'#', '/', '\\', ':', '?', '"', '\'', '“', '”', '‘', '’', '&', '*'}));
 
 		/// <summary>
 		/// Returns a string that converts invalid file system characters to valid characters
