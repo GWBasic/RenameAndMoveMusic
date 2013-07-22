@@ -21,7 +21,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <Externalconsole>True</Externalconsole>
-    <Commandlineparameters>"/Users/andrewrondeau/Syncplicity/Mobile Music" "/Users/andrewrondeau/Syncplicity/Mobile Music"</Commandlineparameters>
+    <Commandlineparameters>"/Users/andrewrondeau/Syncplicity/Bonus Tracks"/Users/andrewrondeau/Syncplicity/Bonus Tracks"</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>none</DebugType>
